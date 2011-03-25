@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=800" />
+    <title>Simple Notes</title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all" />
+    <script type="text/javascript">
+      function set_focus() {
+        var input = document.getElementById("addnew");
+        input.focus();
+      }
+    </script>
+  </head>
+  <body onLoad="set_focus();">
+    <div id="body">
+      <h1>Simple Notes</h1>
+      <div class="links">
+        {{ login_or_logout }}&nbsp;&middot;&nbsp;<a href="clear">Clear</a>
+      </div>
+      <div class="list">
+        <ul id="list">
+          {% if anonymous %}
+            <li>{{ login_or_logout }}</li>
+            <li>Add Your Notes</li>
+          {% else %}
+            {% for note in notes %}
+              <li>{{ note }}</li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <form action="." method="POST">
+          <input id="addnew" name="text" type="text" />
+        </form>
+      </div>
+      <div class="footer">
+        &copy; 2011 by Tobias Rodäbel
+        &middot; Powered by
+        <a href="http://code.google.com/appengine">Google App Engine</a>
+      </div>
+    </div>
+  </body>
+</html>
