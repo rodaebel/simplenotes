@@ -54,6 +54,9 @@ class TestApp(unittest.TestCase):
 
         self.testbed.deactivate()
 
+        # Remove the rdbms sqlite test db
+        os.unlink("test.rdbms")
+
     def testMainHandler(self):
         """Tests the main handler."""
 
