@@ -24,6 +24,9 @@
             <li>{{ login_or_logout }}</li>
             <li>Add Your Notes</li>
           {% else %}
+            {% if not notes %}
+              <li>Add your first note below...</li>
+            {% endif %}
             {% for note in notes %}
               <li>{{ note }}</li>
             {% endfor %}

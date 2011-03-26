@@ -41,7 +41,7 @@ class TestApp(unittest.TestCase):
         self.testbed.init_user_stub()
         os.environ["USER_EMAIL"] = "test@example.com"
         os.environ["USER_ID"] = "185804764220139124118"
-        os.environ["USER_IS_ADMIN"] = "1"
+        os.environ["USER_IS_ADMIN"] = "0"
 
         # Setup the rdbms sqlite service
         sys.modules['google.appengine.api.rdbms'] = rdbms_sqlite
@@ -76,6 +76,14 @@ class TestApp(unittest.TestCase):
 
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("Foobar" in response.body)
+
+        # Other users aren't allowed to see the same note
+        os.environ["USER_EMAIL"] = "foo@example.com"
+        os.environ["USER_ID"] = "118014123910087881858"
+        os.environ["USER_IS_ADMIN"] = "0"
+
+        response = self.app.get('/')
+        self.assertFalse("Foobar" in response.body)
 
     def testClear(self):
         """Clears all notes."""
