@@ -22,6 +22,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
 
 import cgi
+import logging
 import os
 
 CREATE_TABLE = """
@@ -99,8 +100,11 @@ class ClearHandler(webapp.RequestHandler):
 
         if users.get_current_user():
             connection = rdbms.connect()
-            cursor = connection.cursor()
-            cursor.execute("DROP TABLE Notes;")
+            try:
+                cursor = connection.cursor()
+                cursor.execute("DROP TABLE Notes;")
+            except Exception, e:
+                logging.error("%s", e)
 
         self.redirect('/')
 

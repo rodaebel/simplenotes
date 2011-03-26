@@ -49,6 +49,11 @@ class TestApp(unittest.TestCase):
         rdbms_sqlite.SetSqliteFile("test.rdbms")
         rdbms_sqlite.connect(database='')
 
+        # Setup the application
+        from app import app
+
+        self.app = webtest.TestApp(app)
+
     def tearDown(self):
         """Clean up."""
 
@@ -60,8 +65,21 @@ class TestApp(unittest.TestCase):
     def testMainHandler(self):
         """Tests the main handler."""
 
-        from app import app
+        response = self.app.get('/')
 
-        simplenotes = webtest.TestApp(app)
+        self.assertEqual(response.status, "200 OK")
 
-        response = simplenotes.get('/')
+    def testAddNote(self):
+        """Adds a note."""
+
+        response = self.app.post('/', {"text": "Foobar"})
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("Foobar" in response.body)
+
+    def testClear(self):
+        """Clears all notes."""
+
+        response = self.app.get('/clear')
+
+        self.assertEqual(response.status, "302 Moved Temporarily")
