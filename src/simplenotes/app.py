@@ -22,6 +22,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
 
 import cgi
+import os
 
 CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS Notes (
@@ -65,7 +66,8 @@ class MainHandler(webapp.RequestHandler):
                 notes = ["Add your first note below..."]
 
         # Render the index.html template
-        self.response.out.write(template.render('index.html', locals()))
+        index_html = os.path.join(os.path.dirname(__file__), "index.html")
+        self.response.out.write(template.render(index_html, locals()))
 
     def post(self):
         """Insert a new note."""

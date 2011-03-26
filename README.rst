@@ -49,3 +49,11 @@ Build and run the application::
 Then access the application using a web browser with the following URL::
 
   http://localhost:8080/
+
+
+Running Unit Tests
+------------------
+
+In order to run all unit tests, enter the following command::
+
+  $ bin/test
