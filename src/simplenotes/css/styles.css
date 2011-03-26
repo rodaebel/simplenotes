@@ -2,7 +2,6 @@ body {
   background-color: #dde4e8;
   background-image: url(/images/background.jpg);
   background-repeat: repeat-x;
-  color: #999;
   font-family: "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif;
   font-size: 150%;
   margin: 0;
@@ -10,7 +9,7 @@ body {
 }
 
 div#body {
-  color: #555;
+  color: #444;
   margin: 0 auto 0 auto;
   width: 31em;
 }
@@ -41,7 +40,7 @@ h1 {
   -moz-border-radius-bottomleft: 0.5em;
   -webkit-border-bottom-right-radius: 0.5em;
   -webkit-border-bottom-left-radius: 0.5em;
-  color: #555;
+  color: #444;
   font-size: 1.8em;
   font-weight: normal;
   margin: 0 0 0.5em 0;
