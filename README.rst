@@ -29,7 +29,7 @@ standard installation of the Linux operating environment. You should ensure
 that these directories are on your PATH and following programs can be found:
 
 * Python 2.5.2+ (3.x is not supported!)
-* SQLite 3 / MySQL 5.1
+* SQLite 3
 
 
 Building and Running the Application
