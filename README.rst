@@ -42,7 +42,7 @@ Get the sources::
 Build and run the application::
 
   $ cd simplenotes
-  $ ../bin/python bootstrap.py --distribute
+  $ python bootstrap.py --distribute
   $ ./bin/buildout
   $ ./bin/dev_appserver.py parts/simplenotes
 
