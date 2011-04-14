@@ -28,12 +28,12 @@ import os
 CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS Notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    note TEXT,
-    user_id VARCHAR(80)
+    user_id VARCHAR(80),
+    note TEXT
 );
 """
 
-INSERT_NOTE = "INSERT INTO Notes (note, user_id) VALUES (?, ?);"
+INSERT_NOTE = "INSERT INTO Notes (user_id, note) VALUES (?, ?);"
 
 SELECT_NOTES = "SELECT note FROM Notes WHERE user_id=? ORDER BY id;"
 
@@ -65,7 +65,7 @@ class MainHandler(webapp.RequestHandler):
             cursor = connection.cursor()
             try:
                 notes = cursor.execute(SELECT_NOTES, (user.user_id(),))
-                notes = [n[0] for n in notes]
+                notes = [note for (note,) in notes]
             except Exception, e:
                 logging.error("%s", e)
 
@@ -105,7 +105,7 @@ class MainHandler(webapp.RequestHandler):
 
         try:
             cursor.execute(CREATE_TABLE)
-            cursor.execute(INSERT_NOTE, (cgi.escape(text), user.user_id()))
+            cursor.execute(INSERT_NOTE, (user.user_id(), cgi.escape(text)))
             connection.commit()
         except:
             connection.rollback()
